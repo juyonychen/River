@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.river.engine</groupId>
+    <artifactId>river</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <name>River :: Project :: Root</name>
+    <packaging>pom</packaging>
+
+    <description>
+
+    </description>
+
+
+
+    <properties>
+        <sdk.java.version>1.8</sdk.java.version>
+        <antlr.version>4.7.2</antlr.version>
+        <maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
+        <maven-surefire-plugin.version>3.0.0-M2</maven-surefire-plugin.version>
+        <maven-shade-plugin.version>3.2.1</maven-shade-plugin.version>
+        <lombok.version>1.18.4</lombok.version>
+        <maven-deploy-plugin.version>3.0.0-M1</maven-deploy-plugin.version>
+        <slf4j.version>1.7.25</slf4j.version>
+        <guava.version>27.0.1-jre</guava.version>
+        <typesafe-config.version>1.3.3</typesafe-config.version>
+        <fastjson.version>1.2.70</fastjson.version>
+
+
+        <junit.jupiter.version>5.4.0-M1</junit.jupiter.version>
+        <junit.platform.version>1.4.0-M1</junit.platform.version>
+        <assertj.version>3.11.1</assertj.version>
+        <mockito.version>2.23.4</mockito.version>
+        <annotations.version>16.0.3</annotations.version>
+
+        <cache-api.version>1.1.0</cache-api.version>
+        <httpclient.version>4.5.6</httpclient.version>
+
+        <!-- Building Properties -->
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <maven.build.timestamp.format>yyyyMMddHHmmss</maven.build.timestamp.format>
+        <maven.version>3.3.9</maven.version>
+
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <java.version>1.8</java.version>
+        <scala.binary.version>2.11</scala.binary.version>
+        <scope.type>compile</scope.type>
+        <junit.version>4.12</junit.version>
+        <log4j.version>1.2.17</log4j.version>
+        <flink.version>1.10.2</flink.version>
+        <commons-lang3.version>3.8.1</commons-lang3.version>
+
+        <jackson.version>2.9.8</jackson.version>
+        <logback.version>1.2.3</logback.version>
+        <mysql.version>5.1.45</mysql.version>
+
+        <spring-boot.version>2.1.1.RELEASE</spring-boot.version>
+        <asciidoctor-maven-plugin.version>1.5.7.1</asciidoctor-maven-plugin.version>
+        <spring-restdocs.version>2.0.3.RELEASE</spring-restdocs.version>
+        <maven-war-plugin.version>3.2.2</maven-war-plugin.version>
+        <servlet.version>3.1.0</servlet.version>
+        <utsClient.version>2.0.14</utsClient.version>
+        <snf-log.version>1.1.7</snf-log.version>
+        <snf-log-support.version>1.1.9</snf-log-support.version>
+        <snf-redis-client.version>2.5.0</snf-redis-client.version>
+        <snf-statistics.version>1.0.6</snf-statistics.version>
+        <snf-scm-client.version>2.2.2</snf-scm-client.version>
+        <snf-zk-client.version>2.0.0</snf-zk-client.version>
+        <commons-pool2>2.0</commons-pool2>
+        <hermes.version>2.0.0-SNAPSHOT</hermes.version>
+        <mybatis-plus.version>3.0.7</mybatis-plus.version>
+        <caffeine.version>2.6.2</caffeine.version>
+        <httpclient.version>4.5.11</httpclient.version>
+        <mybatis-spring.version>1.3.2</mybatis-spring.version>
+        <pagehelper.version>5.1.4</pagehelper.version>
+        <druid.version>1.0.15</druid.version>
+        <ganymed-ssh2.version>262</ganymed-ssh2.version>
+        <utsClient.version>2.0.14</utsClient.version>
+
+        <!-- Sonar configuration -->
+        <sonar.language>java</sonar.language>
+        <sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
+        <sonar.exclusions>
+
+        </sonar.exclusions>
+        <sonar.coverage.exclusions>
+
+        </sonar.coverage.exclusions>
+        <sonar-maven-plugin.version>3.5.0.1254</sonar-maven-plugin.version>
+    </properties>
+
+    <modules>
+
+        <module>engine</module>
+        <module>common</module>
+
+
+    </modules>
+</project>
