@@ -5,7 +5,7 @@ package com.river.engine.ast.operands.primitive;
 import com.river.engine.ast.Operand;
 import com.river.common.exception.TypeCastException;
 import com.river.common.utils.TypeUtils;
-import com.river.engine.context.MetricContext;
+import com.river.engine.context.DataContext;
 import com.river.engine.context.RuleContext;
 import com.river.engine.formats.types.Value;
 import com.river.engine.formats.types.values.BooleanValue;
@@ -31,12 +31,12 @@ public class BooleanOperand implements Operand {
 
 
     @Override
-    public Value calculate(MetricContext message, RuleContext context) {
+    public Value calculate(DataContext message, RuleContext context) {
         return BooleanValue.valueOf(result);
     }
 
     @Override
-    public Value calculate(MetricContext context) {
+    public Value calculate(DataContext context) {
         return BooleanValue.valueOf(result);
     }
 

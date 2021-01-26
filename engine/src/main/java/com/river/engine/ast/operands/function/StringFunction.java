@@ -4,7 +4,7 @@ import com.river.engine.formats.types.Value;
 import com.river.engine.ast.Operand;
 import com.river.engine.ast.operands.base.AbstractAggregationOperand;
 import com.river.engine.enmu.DataType;
-import com.river.engine.context.MetricContext;
+import com.river.engine.context.DataContext;
 import com.river.engine.context.RuleContext;
 
 /**
@@ -25,12 +25,12 @@ public class StringFunction extends AbstractAggregationOperand {
     }
 
     @Override
-    public Value calculate(MetricContext metric, RuleContext context) {
+    public Value calculate(DataContext metric, RuleContext context) {
         return null;
     }
 
     @Override
-    public Value calculate(MetricContext context) {
+    public Value calculate(DataContext context) {
         return null;
     }
 }

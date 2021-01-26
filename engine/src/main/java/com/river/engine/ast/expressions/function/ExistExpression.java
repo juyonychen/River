@@ -3,7 +3,7 @@ package com.river.engine.ast.expressions.function;
 
 import com.river.engine.ast.Expression;
 import com.river.engine.ast.Operand;
-import com.river.engine.context.MetricContext;
+import com.river.engine.context.DataContext;
 import com.river.engine.formats.types.Value;
 import com.river.engine.formats.types.values.NullValue;
 import com.river.engine.grammar.RuleSQLParser;
@@ -23,7 +23,7 @@ public class ExistExpression implements Expression {
     private final Operand existOperand;
 
     @Override
-    public boolean evaluate(MetricContext context) {
+    public boolean evaluate(DataContext context) {
         Value result = existOperand.calculate(context);
         return !(result instanceof NullValue);
     }

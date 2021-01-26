@@ -4,7 +4,7 @@ package com.river.engine.ast.expressions.base;
 
 import com.river.engine.ast.Expression;
 import com.river.engine.ast.Operand;
-import com.river.engine.context.MetricContext;
+import com.river.engine.context.DataContext;
 import com.river.engine.formats.types.Value;
 import com.river.engine.formats.types.utils.ValueConverter;
 import lombok.AllArgsConstructor;
@@ -26,20 +26,20 @@ public abstract class AbstractCompareExpression implements Expression {
 
     protected final Operand rightOperand;
 
-    protected Value leftValue(MetricContext context) {
+    protected Value leftValue(DataContext context) {
         return leftOperand.calculate(context);
     }
 
-    protected Value rightValue(MetricContext context) {
+    protected Value rightValue(DataContext context) {
         return rightOperand.calculate(context);
     }
 
-    protected double leftNumber(MetricContext context) {
+    protected double leftNumber(DataContext context) {
         Value value = leftValue(context);
         return ValueConverter.numberValue(value);
     }
 
-    protected double rightNumber(MetricContext context) {
+    protected double rightNumber(DataContext context) {
         Value value = rightValue(context);
         return ValueConverter.numberValue(value);
     }

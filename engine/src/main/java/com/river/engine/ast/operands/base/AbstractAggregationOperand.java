@@ -8,7 +8,7 @@
 package com.river.engine.ast.operands.base;
 
 
-import com.river.engine.context.MetricContext;
+import com.river.engine.context.DataContext;
 import com.river.engine.formats.types.Value;
 import com.river.engine.formats.types.values.NumberValue;
 import com.river.engine.ast.FunctionOperand;
@@ -28,10 +28,6 @@ public abstract class AbstractAggregationOperand extends AbstractFunctionOperand
     protected AbstractAggregationOperand(Operand innerOperand, DataType dataType) {
         super(innerOperand, dataType);
     }
-
-
-
-
 
     /**
      * function name
@@ -59,12 +55,6 @@ public abstract class AbstractAggregationOperand extends AbstractFunctionOperand
         }
     }
 
-
-    protected synchronized Value calculate(MetricContext context, String function, NumberValue operandValue){
-
-        //默认返回0
-        return new NumberValue(0L);
-    }
 
 
     @Override

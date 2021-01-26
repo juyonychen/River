@@ -9,9 +9,15 @@ import lombok.AllArgsConstructor;
  **/
 @AllArgsConstructor
 public enum DataType {
+
     STRING(1, "String"),
+
     INT(2, "Int"),
-    LONG(3, "Long");
+
+    LONG(3, "Long"),
+
+    DATA_TIME(4, "DataTime")
+    ;
 
     private int code;
     private String desc;

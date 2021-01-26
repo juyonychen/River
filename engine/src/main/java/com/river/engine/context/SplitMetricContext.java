@@ -11,7 +11,7 @@ import lombok.extern.slf4j.Slf4j;
  * @since 1.0.0, 2021/1/19 18:50
  **/
 @Slf4j
-public class SplitMetricContext extends MetricContext<Integer> {
+public class SplitMetricContext extends DataContext<Integer> {
 
     private String[] splitList ;
 

@@ -9,8 +9,11 @@ import lombok.AllArgsConstructor;
  **/
 @AllArgsConstructor
 public enum AliasType {
+
     COLUMN_ALIAS(1, "ColumnType"),
+
     NAMING_ALIAS(2, "NamingAlias"),
+
     FUNCTION_ALIAS(3, "FunctionAlias");
 
     private int code;

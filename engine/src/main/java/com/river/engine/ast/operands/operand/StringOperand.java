@@ -8,7 +8,7 @@
 package com.river.engine.ast.operands.operand;
 
 
-import com.river.engine.context.MetricContext;
+import com.river.engine.context.DataContext;
 import com.river.engine.context.RuleContext;
 import com.river.engine.formats.types.Value;
 import com.river.engine.formats.types.values.StringValue;
@@ -45,7 +45,7 @@ public class StringOperand implements Operand {
     }
 
     @Override
-    public Value calculate(MetricContext message, RuleContext context) {
+    public Value calculate(DataContext message, RuleContext context) {
         return value;
     }
 
@@ -55,7 +55,7 @@ public class StringOperand implements Operand {
     }
 
     @Override
-    public Value calculate(MetricContext context) {
+    public Value calculate(DataContext context) {
         return value;
     }
 }

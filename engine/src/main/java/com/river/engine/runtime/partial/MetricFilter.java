@@ -1,15 +1,15 @@
 /*
+ * Copyright © 2013-2018 Suning.com Co., Ltd.
  *
- *
- *
- *
- *
+ * This file is part of euphoria project.
+ * It can not be copied and/or distributed without the express
+ * permission of cloudytrace group.
  */
 package com.river.engine.runtime.partial;
 
 
 import com.river.engine.ast.Expression;
-import com.river.engine.context.MetricContext;
+import com.river.engine.context.DataContext;
 import lombok.AllArgsConstructor;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
@@ -27,7 +27,7 @@ public class MetricFilter extends AbstractPartInfo {
     @NonNull
     private final Expression filterExpression;
 
-    public boolean isDesiredMetric(MetricContext context) {
+    public boolean isDesiredMetric(DataContext context) {
         try {
             return filterExpression.evaluate(context);
         } catch (Exception e) {

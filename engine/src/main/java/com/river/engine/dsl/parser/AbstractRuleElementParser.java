@@ -199,8 +199,6 @@ public abstract class AbstractRuleElementParser<P> extends AbstractStatementPars
             return visitStringEle((RuleSQLParser.StringEleContext) context);
         }else if (context instanceof RuleSQLParser.AggFunctionContext) {
             return visitAggFunction((RuleSQLParser.AggFunctionContext) context);
-        }else if(context instanceof RuleSQLParser.AggregationValueContext){
-            return visitAggregationValue((RuleSQLParser.AggregationValueContext)context);
         }
 
         throw new UnSupportFunctionException("无法支持的计算指标类型: {}", context.getClass());
@@ -232,7 +230,7 @@ public abstract class AbstractRuleElementParser<P> extends AbstractStatementPars
         Operand functionOperand = FunctionManager.createFunction(functionName, funcParams);
 
         if (functionOperand instanceof FunctionOperand) {
-            ruleContext.registerOperand(AliasType.FUNCTION_ALIAS, "", functionOperand);
+            ruleContext.registerOperand(functionOperand);
         }
 
         return functionOperand;
@@ -312,7 +310,7 @@ public abstract class AbstractRuleElementParser<P> extends AbstractStatementPars
     @Override
     public Object visitMetric(RuleSQLParser.MetricContext ctx) {
         Operand operand = (Operand) visitMetricValue(ctx.metricValue());
-        ruleContext.registerOperand(AliasType.COLUMN_ALIAS, ctx.columnName.getText(), operand);
+        ruleContext.registerOperand(operand);
         return getNamingOperand(operand, ctx.columnName);
     }
 
@@ -339,16 +337,6 @@ public abstract class AbstractRuleElementParser<P> extends AbstractStatementPars
     }
 
     private Operand createMetricOperand(String metricName) {
-//        Optional<Operand> operand = ruleContext.popOperand(metricName);
-//        if (operand.isPresent()) {
-//            return operand.get();
-//        } else {
-//            return createIdEleOperand(metricName);
-//        }
-        return createIdEleOperand(metricName);
-    }
-
-    private Operand createIdEleOperand(String metricName) {
         Operand operand = new ColumnOperand(metricName);
         return operand;
     }

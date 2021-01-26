@@ -4,7 +4,7 @@ package com.river.engine.ast.expressions.compare;
 
 import com.river.engine.ast.Operand;
 import com.river.engine.ast.expressions.base.AbstractCompareExpression;
-import com.river.engine.context.MetricContext;
+import com.river.engine.context.DataContext;
 import com.river.engine.formats.types.Value;
 import com.river.engine.grammar.RuleSQLParser;
 
@@ -21,7 +21,7 @@ public class EqualsExpression extends AbstractCompareExpression {
     }
 
     @Override
-    public boolean evaluate(MetricContext context) {
+    public boolean evaluate(DataContext context) {
         Value left = leftValue(context);
         Value right = rightValue(context);
 

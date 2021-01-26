@@ -5,7 +5,7 @@ package com.river.engine.ast.expressions.function;
 import com.river.engine.ast.Expression;
 import com.river.engine.ast.Operand;
 import com.river.engine.ast.operands.operand.StringOperand;
-import com.river.engine.context.MetricContext;
+import com.river.engine.context.DataContext;
 import com.river.engine.grammar.RuleSQLParser;
 import lombok.AllArgsConstructor;
 import lombok.NonNull;
@@ -27,7 +27,7 @@ public class LikeExpression implements Expression {
     private final StringOperand likeMessage;
 
     @Override
-    public boolean evaluate(MetricContext context) {
+    public boolean evaluate(DataContext context) {
         String currentValue = comparator.calculate(context).getValue().toString();
         return currentValue.matches(likeMessage.toString());
     }

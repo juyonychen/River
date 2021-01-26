@@ -1,7 +1,7 @@
 package com.river.engine.runtime.processor;
 
 import com.river.common.dto.RuleControlMessage;
-import com.river.engine.context.MetricContext;
+import com.river.engine.context.DataContext;
 import com.river.engine.context.RuleContext;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
@@ -36,7 +36,7 @@ public class MetricCalculateProcessor implements Serializable{
      * @param context
      * @return
      */
-    public Optional<Map> calculate(MetricContext context) {
+    public Optional<Map> calculate(DataContext context) {
         Map<String, Object> result = new HashMap<>();
 //        if(ruleContext.getMetricFilter() !=null ){
 //            if(ruleContext.getMetricFilter().isDesiredMetric(context)){
@@ -58,7 +58,7 @@ public class MetricCalculateProcessor implements Serializable{
      * @param context
      * @return
      */
-    public Map<String, Object> calculateAggFunction(MetricContext context) {
+    public Map<String, Object> calculateAggFunction(DataContext context) {
         Map<String, Object> result = new HashMap<>();
 
         return result;
@@ -72,7 +72,7 @@ public class MetricCalculateProcessor implements Serializable{
      * @param context
      * @return
      */
-    public boolean calculateAlert(MetricContext context) {
+    public boolean calculateAlert(DataContext context) {
         if(ruleContext.getMetricFilter() !=null ){
             if(ruleContext.getMetricFilter().isDesiredMetric(context)){
                 return true;
