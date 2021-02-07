@@ -31,6 +31,7 @@ public enum ErrorCode {
     GENERATE_CUSTOM_TYPE_CLASS_ERROR(100007, "自定义类型无法使用"),
     LOG_STR_LENGTH_NOT_MATCH_THE_FORMAT(100010, "分割的日志数组长度与解析格式不匹配"),
     UNEXPECTED_FIELD_PARSE_EXCEPTION(100099, "日誌解析未知異常"),
+    UNEXPECTED_ENUM_EXCEPTION(100011, "不支持的枚举类型"),
 
     // 2000xx exception
     SQL_FORMAT_NOT_VALID(200002, "SQL DSL 格式不正確"),

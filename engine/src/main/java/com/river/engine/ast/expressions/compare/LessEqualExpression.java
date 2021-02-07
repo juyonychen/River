@@ -10,7 +10,7 @@ package com.river.engine.ast.expressions.compare;
 
 import com.river.engine.ast.Operand;
 import com.river.engine.ast.expressions.base.AbstractCompareExpression;
-import com.river.engine.context.MetricContext;
+import com.river.engine.context.DataContext;
 import com.river.engine.grammar.RuleSQLParser;
 
 import java.util.Objects;
@@ -27,7 +27,7 @@ public class LessEqualExpression extends AbstractCompareExpression {
     }
 
     @Override
-    public boolean evaluate(MetricContext context) {
+    public boolean evaluate(DataContext context) {
         double leftNumber = leftNumber(context);
         double rightNumber = rightNumber(context);
 

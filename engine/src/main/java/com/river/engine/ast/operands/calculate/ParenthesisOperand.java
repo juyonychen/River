@@ -4,13 +4,14 @@ package com.river.engine.ast.operands.calculate;
 
 import com.river.engine.formats.types.Value;
 import com.river.engine.ast.Operand;
-import com.river.engine.context.MetricContext;
+import com.river.engine.context.DataContext;
 import com.river.engine.context.RuleContext;
 import com.river.engine.grammar.RuleSQLParser;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NonNull;
 
+import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -26,12 +27,12 @@ public class ParenthesisOperand implements Operand {
     private final Operand innerOperand;
 
     @Override
-    public Value calculate(MetricContext context) {
+    public Value calculate(DataContext context) {
         return innerOperand.calculate(context);
     }
 
     @Override
-    public Value calculate(MetricContext message, RuleContext context) {
+    public Value calculate(DataContext message, Map<String,String> context) {
         return innerOperand.calculate(message);
     }
 

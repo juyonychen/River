@@ -2,12 +2,12 @@
 package com.river.engine.ast;
 
 import com.google.common.base.Strings;
-import com.river.engine.context.MetricContext;
-import com.river.engine.context.RuleContext;
+import com.river.engine.context.DataContext;
 import com.river.engine.dsl.exception.LexicalErrorException;
 import com.river.engine.formats.types.Value;
 
 import java.io.Serializable;
+import java.util.Map;
 
 
 public interface Operand extends Serializable {
@@ -19,14 +19,15 @@ public interface Operand extends Serializable {
      * @param metric    The latest metric message
      * @param context    The engine context for aggregation function
      */
-    Value calculate(MetricContext metric, RuleContext context);
+    Value calculate(DataContext metric, Map<String, String> context);
 
     /**
-     * Calculate the {@link MetricContext} in ETL module, if it matches, we would extract the
+     *
+     * Calculate the {@link DataContext} in ETL module, if it matches, we would extract the
      *
      * @param context    The metric context for a passed metric, the metric could be json, log, jmx, etc.
      */
-    Value calculate(MetricContext context);
+    Value calculate(DataContext context);
 
 
     default void validateString(String str) {
@@ -34,4 +35,5 @@ public interface Operand extends Serializable {
             throw new LexicalErrorException("String evaluate shouldn't be null or empty");
         }
     }
+
 }

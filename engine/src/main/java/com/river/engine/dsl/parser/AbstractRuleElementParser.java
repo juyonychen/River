@@ -1,10 +1,17 @@
 package com.river.engine.dsl.parser;
 
 import com.google.common.collect.Lists;
+import com.river.engine.ast.Expression;
+import com.river.engine.ast.FunctionManager;
+import com.river.engine.ast.Operand;
 import com.river.engine.ast.expressions.binary.AndExpression;
 import com.river.engine.ast.expressions.binary.OrExpression;
 import com.river.engine.ast.expressions.binary.ParenthesisExpression;
 import com.river.engine.ast.expressions.compare.*;
+import com.river.engine.ast.expressions.function.InExpression;
+import com.river.engine.ast.expressions.function.LikeExpression;
+import com.river.engine.ast.expressions.function.NotExpression;
+import com.river.engine.ast.operands.base.AbstractFunctionOperand;
 import com.river.engine.ast.operands.calculate.ParenthesisOperand;
 import com.river.engine.ast.operands.calculate.arithmetic.*;
 import com.river.engine.ast.operands.operand.ColumnOperand;
@@ -17,14 +24,6 @@ import com.river.engine.context.RuleContext;
 import com.river.engine.dsl.exception.UnSupportFunctionException;
 import com.river.engine.grammar.RuleSQLParser;
 import com.river.engine.grammar.RuleSQLVisitor;
-import com.river.engine.ast.FunctionOperand;
-import com.river.engine.ast.Expression;
-import com.river.engine.ast.FunctionManager;
-import com.river.engine.ast.Operand;
-import com.river.engine.ast.expressions.function.InExpression;
-import com.river.engine.ast.expressions.function.LikeExpression;
-import com.river.engine.ast.expressions.function.NotExpression;
-import com.river.engine.enmu.AliasType;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
@@ -50,7 +49,6 @@ public abstract class AbstractRuleElementParser<P> extends AbstractStatementPars
 
     @Setter
     @Getter
-    @Accessors(chain = true)
     protected RuleContext ruleContext =new RuleContext();
 
     @Override
@@ -83,7 +81,6 @@ public abstract class AbstractRuleElementParser<P> extends AbstractStatementPars
 
         throw new UnSupportFunctionException("无法支持的逻辑組合操作: {}", context.getClass());
     }
-
 
     private Object visitBasicBoolExpr(RuleSQLParser.BasicBoolExprContext context) {
         if (context instanceof RuleSQLParser.CompareExprContext) {
@@ -199,8 +196,6 @@ public abstract class AbstractRuleElementParser<P> extends AbstractStatementPars
             return visitStringEle((RuleSQLParser.StringEleContext) context);
         }else if (context instanceof RuleSQLParser.AggFunctionContext) {
             return visitAggFunction((RuleSQLParser.AggFunctionContext) context);
-        }else if(context instanceof RuleSQLParser.AggregationValueContext){
-            return visitAggregationValue((RuleSQLParser.AggregationValueContext)context);
         }
 
         throw new UnSupportFunctionException("无法支持的计算指标类型: {}", context.getClass());
@@ -212,31 +207,27 @@ public abstract class AbstractRuleElementParser<P> extends AbstractStatementPars
 
         List<Object> parameters = Lists.newArrayList();
         parameters.add(visitAggParameters(context.aggParameters()).toString());
-        return FunctionManager.createFunction(functionName, parameters);
+        Object[] obj = parameters.toArray();
+        return FunctionManager.createFunction(functionName, obj);
 
     }
-
-    @Override
-    public Object visitAggregationValue(RuleSQLParser.AggregationValueContext context) {
-        String functionName =context.ID().getText();
-
-        List<Object> parameters = Lists.newArrayList();
-
-        Operand metricValue = (Operand) visitMetricValue(context.metricValue());
-        parameters.add(metricValue);
-
-        List<Object> functionParameters = visitAggregateFunctionParameters(context.aggregateFunctionParameters());
-        parameters.addAll(functionParameters);
-        Object[] funcParams = parameters.toArray();
-
-        Operand functionOperand = FunctionManager.createFunction(functionName, funcParams);
-
-        if (functionOperand instanceof FunctionOperand) {
-            ruleContext.registerOperand(AliasType.FUNCTION_ALIAS, "", functionOperand);
-        }
-
-        return functionOperand;
-    }
+//
+//    @Override
+//    public Object visitAggregationValue(RuleSQLParser.AggregationValueContext context) {
+//        String functionName =context.ID().getText();
+//
+//        List<Object> parameters = Lists.newArrayList();
+//
+//        Operand metricValue = (Operand) visitMetricValue(context.metricValue());
+//        parameters.add(metricValue);
+//
+//        List<Object> functionParameters = visitAggregateFunctionParameters(context.aggregateFunctionParameters());
+//        parameters.addAll(functionParameters);
+//        Object[] funcParams = parameters.toArray();
+//
+//        AbstractFunctionOperand functionOperand = FunctionManager.createFunction(functionName, funcParams);
+//        return functionOperand;
+//    }
 
     @Override
     public List<Object>  visitAggregateFunctionParameters(RuleSQLParser.AggregateFunctionParametersContext context) {
@@ -274,11 +265,11 @@ public abstract class AbstractRuleElementParser<P> extends AbstractStatementPars
     }
 
     @Override
-    public List<NamingOperand> visitMetrics(RuleSQLParser.MetricsContext ctx) {
+    public List<Operand> visitMetrics(RuleSQLParser.MetricsContext ctx) {
         // List<NamingOperand> would be the return type
         return ctx.metric().stream()
                 .map(this::visitMetric)
-                .map(NamingOperand.class::cast)
+                .map(Operand.class::cast)
                 .collect(toList());
     }
 
@@ -312,8 +303,12 @@ public abstract class AbstractRuleElementParser<P> extends AbstractStatementPars
     @Override
     public Object visitMetric(RuleSQLParser.MetricContext ctx) {
         Operand operand = (Operand) visitMetricValue(ctx.metricValue());
-        ruleContext.registerOperand(AliasType.COLUMN_ALIAS, ctx.columnName.getText(), operand);
-        return getNamingOperand(operand, ctx.columnName);
+        if(operand instanceof ColumnOperand ){
+            ruleContext.registerOperand(operand);
+        }else{
+            ruleContext.registerOperand(new NamingOperand(ctx.getChild(2).getText(), operand));
+        }
+        return operand;
     }
 
     @Override
@@ -323,13 +318,12 @@ public abstract class AbstractRuleElementParser<P> extends AbstractStatementPars
 
     @Override
     public Object visitFromtype(RuleSQLParser.FromtypeContext ctx) {
-        String aa = ctx.getText();
         return null;
     }
 
     @Override
     public String visitSplitByExpr(RuleSQLParser.SplitByExprContext ctx) {
-        return ctx.splitByValue().STRING().getText();
+        return removeQuote(ctx.splitByValue().STRING().getText());
     }
 
     @Override
@@ -339,16 +333,6 @@ public abstract class AbstractRuleElementParser<P> extends AbstractStatementPars
     }
 
     private Operand createMetricOperand(String metricName) {
-//        Optional<Operand> operand = ruleContext.popOperand(metricName);
-//        if (operand.isPresent()) {
-//            return operand.get();
-//        } else {
-//            return createIdEleOperand(metricName);
-//        }
-        return createIdEleOperand(metricName);
-    }
-
-    private Operand createIdEleOperand(String metricName) {
         Operand operand = new ColumnOperand(metricName);
         return operand;
     }
@@ -396,10 +380,6 @@ public abstract class AbstractRuleElementParser<P> extends AbstractStatementPars
         return new StringOperand(ctx.STRING().getText());
     }
 
-
-    private NamingOperand getNamingOperand(Operand operand, Token metricNameToken) {
-            return new NamingOperand(metricNameToken.getText(), operand);
-    }
     @Override
     public String visitSource(RuleSQLParser.SourceContext ctx) {
         return ctx.getText();
@@ -462,7 +442,7 @@ public abstract class AbstractRuleElementParser<P> extends AbstractStatementPars
         return new ParenthesisOperand(operand);
     }
 
-    private String removeQuote(String str) {
+    protected String removeQuote(String str) {
         final int lastIndex = str.length() - 1;
         if ((str.charAt(0) == '\'' && str.charAt(lastIndex) == '\'')
                 || (str.charAt(0) == '"' && str.charAt(lastIndex) == '"')) {

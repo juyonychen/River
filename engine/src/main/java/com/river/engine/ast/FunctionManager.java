@@ -3,6 +3,9 @@ package com.river.engine.ast;
 
 import com.google.common.collect.ImmutableMap;
 import com.river.engine.ast.operands.base.AbstractFunctionOperand;
+import com.river.engine.ast.operands.function.IntFunction;
+import com.river.engine.ast.operands.function.LongFunction;
+import com.river.engine.ast.operands.function.StringFunction;
 import com.river.engine.dsl.exception.FunctionNotFoundException;
 import com.river.engine.common.ReflectionSupport;
 import lombok.experimental.UtilityClass;
@@ -21,6 +24,9 @@ public class FunctionManager {
 
     private static final Map<String, Class<? extends AbstractFunctionOperand>> FUNCTION_NAMING = ImmutableMap
             .<String, Class<? extends AbstractFunctionOperand>>builder()
+            .put("STRING", StringFunction.class)
+            .put("INT", IntFunction.class)
+            .put("LONG", LongFunction.class)
             .build();
 
     /**

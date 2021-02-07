@@ -7,7 +7,7 @@
  */
 package com.river.engine.ast.operands.base;
 
-import com.river.engine.context.MetricContext;
+import com.river.engine.context.DataContext;
 import com.river.engine.context.RuleContext;
 import com.river.engine.formats.exception.ValueTypeNotSupportedException;
 import com.river.engine.formats.types.Value;
@@ -19,6 +19,8 @@ import com.river.engine.ast.Operand;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NonNull;
+
+import java.util.Map;
 
 
 @Getter
@@ -33,7 +35,7 @@ public abstract class AbstractBinaryOperand implements Operand {
     protected final Operand rightOperand;
 
     @Override
-    public Value calculate(MetricContext message, RuleContext context){
+    public Value calculate(DataContext message, Map<String,String> context){
         Value leftValue = leftOperand.calculate(message, context);
         Value rightValue = rightOperand.calculate(message, context);
 
@@ -41,7 +43,7 @@ public abstract class AbstractBinaryOperand implements Operand {
     }
 
     @Override
-    public Value calculate(MetricContext context) {
+    public Value calculate(DataContext context) {
         Value leftValue = leftOperand.calculate(context);
         Value rightValue = rightOperand.calculate(context);
 

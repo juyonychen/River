@@ -9,7 +9,7 @@ package com.river.common.exception;
  * @version 1.0.0, 2018-05-28 14:09
  * @since 1.0.0, 2018-05-28 14:09
  */
-public class TypeCastException extends EuphoriaRuntimeException {
+public class TypeCastException extends EngineRuntimeException {
     private static final long serialVersionUID = -693821939988179383L;
 
     public TypeCastException(String message, Object... params) {

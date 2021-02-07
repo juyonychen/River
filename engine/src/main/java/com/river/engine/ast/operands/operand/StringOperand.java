@@ -8,12 +8,13 @@
 package com.river.engine.ast.operands.operand;
 
 
-import com.river.engine.context.MetricContext;
-import com.river.engine.context.RuleContext;
+import com.river.engine.ast.Operand;
+import com.river.engine.context.DataContext;
 import com.river.engine.formats.types.Value;
 import com.river.engine.formats.types.values.StringValue;
-import com.river.engine.ast.Operand;
 import lombok.EqualsAndHashCode;
+
+import java.util.Map;
 
 /**
  * A operand which stands for a str constant
@@ -45,7 +46,7 @@ public class StringOperand implements Operand {
     }
 
     @Override
-    public Value calculate(MetricContext message, RuleContext context) {
+    public Value calculate(DataContext message, Map<String,String> context) {
         return value;
     }
 
@@ -55,7 +56,8 @@ public class StringOperand implements Operand {
     }
 
     @Override
-    public Value calculate(MetricContext context) {
+    public Value calculate(DataContext context) {
         return value;
     }
+
 }

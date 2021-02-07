@@ -1,7 +1,7 @@
 
 package com.river.engine.ast.expressions.function;
 
-import com.river.engine.context.MetricContext;
+import com.river.engine.context.DataContext;
 import com.river.engine.ast.Expression;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -25,7 +25,7 @@ public class BooleanExpression implements Expression {
 
 
     @Override
-    public boolean evaluate(MetricContext context) {
+    public boolean evaluate(DataContext context) {
         return result;
     }
 

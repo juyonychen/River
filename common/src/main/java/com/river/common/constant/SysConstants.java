@@ -10,6 +10,8 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public class SysConstants {
 
+    public static final char LIST_CHAR = (char)(01);
+    public static final char CHAR = '\\';
     /**
      *
      */

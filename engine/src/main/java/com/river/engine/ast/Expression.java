@@ -1,7 +1,7 @@
 
 package com.river.engine.ast;
 
-import com.river.engine.context.MetricContext;
+import com.river.engine.context.DataContext;
 
 import java.io.Serializable;
 
@@ -20,5 +20,5 @@ public interface Expression extends Serializable {
      *
      * @param context    A raw metric context
      */
-    boolean evaluate(MetricContext context);
+    boolean evaluate(DataContext context);
 }

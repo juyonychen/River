@@ -8,25 +8,34 @@
 package com.river.engine.ast.operands.base;
 
 
+import com.river.common.dto.enums.DataType;
 import com.river.engine.ast.Operand;
-import com.river.engine.enmu.DataType;
-import lombok.Getter;
+import com.river.engine.ast.operands.FunctionOperand;
 
 /**
- * abstract unary operators, a union function operand for nest function and aggregation function
  *
  */
-@Getter
-public abstract class AbstractFunctionOperand implements Operand {
+public abstract class AbstractFunctionOperand implements Operand, FunctionOperand {
     private static final long serialVersionUID = 5137469905650561565L;
 
-    protected final Operand innerOperand;
-
     protected final DataType dataType;
+    protected final String parameter;
 
-    protected AbstractFunctionOperand(Operand innerOperand, DataType dataType) {
-        this.innerOperand = innerOperand;
+    public AbstractFunctionOperand(String parameter, DataType dataType) {
+        this.parameter = parameter;
         this.dataType = dataType;
+    }
+
+    public abstract String functionName();
+
+
+    @Override
+    public DataType getDataType(){
+        return this.dataType;
+    }
+
+    public String getParameter(){
+        return this.parameter;
     }
 
 }

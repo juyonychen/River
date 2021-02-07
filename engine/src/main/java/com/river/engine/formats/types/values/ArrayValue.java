@@ -26,6 +26,21 @@ public class ArrayValue implements Value<ArrayValue, Value[]> {
     public ArrayValue() {
     }
 
+    public ArrayValue(String[] strValues){
+        values = new Value[strValues.length];
+        for(int x = 0;x <= strValues.length; x++){
+            values[x] = new StringValue(strValues[x]);
+        }
+    }
+
+    public int length(){
+        if(null == values){
+            return 0;
+        }else{
+            return values.length;
+        }
+    }
+
     public ArrayValue(Value[] values) {
         this.values = values;
     }

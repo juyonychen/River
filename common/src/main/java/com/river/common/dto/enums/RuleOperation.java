@@ -45,7 +45,7 @@ public enum RuleOperation {
     }
 
     public static RuleOperation convert(@NonNull String code) {
-        RuleOperation ruleOperation = ruleOperationMap.get(code);
+        RuleOperation ruleOperation = ruleOperationMap.get(code.toUpperCase());
         if (ruleOperation != null) {
             return ruleOperation;
         }

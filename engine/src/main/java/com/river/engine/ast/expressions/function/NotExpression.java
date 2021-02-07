@@ -3,7 +3,7 @@ package com.river.engine.ast.expressions.function;
 
 import com.river.engine.ast.Expression;
 import com.river.engine.ast.expressions.compare.EqualsExpression;
-import com.river.engine.context.MetricContext;
+import com.river.engine.context.DataContext;
 import com.river.engine.grammar.RuleSQLParser;
 import lombok.AllArgsConstructor;
 import lombok.NonNull;
@@ -22,7 +22,7 @@ public class NotExpression implements Expression {
     private final Expression innerExpression;
 
     @Override
-    public boolean evaluate(MetricContext context) {
+    public boolean evaluate(DataContext context) {
         return !innerExpression.evaluate(context);
     }
 

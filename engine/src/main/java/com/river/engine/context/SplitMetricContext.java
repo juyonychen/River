@@ -1,8 +1,5 @@
 package com.river.engine.context;
 
-import com.river.engine.formats.types.values.LongValue;
-import com.river.engine.formats.types.values.NumberValue;
-import com.river.engine.formats.types.values.StringValue;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -11,7 +8,7 @@ import lombok.extern.slf4j.Slf4j;
  * @since 1.0.0, 2021/1/19 18:50
  **/
 @Slf4j
-public class SplitMetricContext extends MetricContext<Integer> {
+public class SplitMetricContext extends DataContext<String> {
 
     private String[] splitList ;
 
@@ -23,20 +20,14 @@ public class SplitMetricContext extends MetricContext<Integer> {
         this.splitList = splitList;
     }
 
-    public StringValue getStringValue(Integer parameter){
-        return new StringValue(splitList[parameter]);
-    }
-
-    public LongValue getLongValue(Integer parameter){
-        try{
-            return new LongValue(Long.parseLong(splitList[parameter]));
-        }catch (NumberFormatException e){
-            log.debug("Parser String to Long error:", e);
-            return new LongValue(0);
+    @Override
+    public String getStringValue(String parameter){
+        int parameterInt = Integer.parseInt(parameter);
+        if(parameterInt >=splitList.length){
+            return "";
+        }else{
+            return splitList[parameterInt];
         }
     }
 
-    public NumberValue getNumberValue(Integer parameter){
-        return new NumberValue(0.0);
-    }
 }

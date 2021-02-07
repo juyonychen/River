@@ -4,7 +4,7 @@ package com.river.engine.ast.expressions.binary;
 
 import com.river.engine.ast.Expression;
 import com.river.engine.ast.expressions.base.AbstractBinaryExpression;
-import com.river.engine.context.MetricContext;
+import com.river.engine.context.DataContext;
 import com.river.engine.grammar.RuleSQLParser;
 import lombok.NonNull;
 
@@ -22,7 +22,7 @@ public class AndExpression extends AbstractBinaryExpression {
     }
 
     @Override
-    public boolean evaluate(MetricContext context) {
+    public boolean evaluate(DataContext context) {
         return leftExpression.evaluate(context)
             && rightExpression.evaluate(context);
     }
